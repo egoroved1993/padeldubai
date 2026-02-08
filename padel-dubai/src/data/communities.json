@@ -1,122 +1,122 @@
 [
     {
-        "id": "padel-dxb-meetup",
-        "name": "Padel DXB Community",
-        "platform": "Meetup",
-        "members": 1450,
-        "link": "https://meetup.com/padel-dxb",
-        "description": "Daily games and tournaments for all levels.",
+        "id": "easy-padel-app",
+        "name": "Easy Padel Community",
+        "platform": "App",
+        "members": 15000,
+        "link": "https://easypadel.ae",
+        "description": "The go-to app for matchmaking and tournaments in Dubai.",
         "location": {
-            "lat": 25.12,
-            "lng": 55.22
+            "lat": 25.10,
+            "lng": 55.15
         }
     },
     {
-        "id": "padel-people-dubai",
-        "name": "The Padel People",
-        "platform": "Telegram",
-        "members": 2890,
-        "link": "https://t.me/padelpeopledubai",
-        "description": "General chat for finding players in Dubai.",
-        "location": {
-            "lat": 25.14,
-            "lng": 55.21
-        }
-    },
-    {
-        "id": "padel-ladies-dubai",
-        "name": "Padel Ladies Dubai",
-        "platform": "WhatsApp",
-        "members": 540,
-        "link": "https://chat.whatsapp.com/padel-ladies",
-        "description": "Exclusive group for female padel players.",
-        "location": {
-            "lat": 25.11,
-            "lng": 55.19
-        }
-    },
-    {
-        "id": "matcha-community",
-        "name": "Matcha Club Social",
-        "platform": "WhatsApp",
-        "members": 1200,
-        "link": "https://chat.whatsapp.com/matcha-club",
-        "description": "Community for Matcha Club regulars.",
-        "location": {
-            "lat": 25.135,
-            "lng": 55.225
-        }
-    },
-    {
-        "id": "dubai-padel-tennis",
-        "name": "Dubai Padel Tennis",
-        "platform": "Facebook",
-        "members": 5200,
-        "link": "https://facebook.com/groups/dubaipadel",
-        "description": "Largest FB group for buying gear and arranging games.",
+        "id": "playtomic-dubai",
+        "name": "Playtomic Dubai",
+        "platform": "App",
+        "members": 25000,
+        "link": "https://playtomic.io",
+        "description": "Global community, find players for friendly matches.",
         "location": {
             "lat": 25.20,
             "lng": 55.27
         }
     },
     {
-        "id": "padel-uae-telegram",
-        "name": "Padel UAE",
+        "id": "padel-people-dubai",
+        "name": "The Padel People",
         "platform": "Telegram",
-        "members": 3400,
-        "link": "https://t.me/padeluae",
-        "description": "National padel community, tournaments and news.",
+        "members": 3200,
+        "link": "https://t.me/padelpeopledubai",
+        "description": "Active group for arranging open matches daily.",
+        "location": {
+            "lat": 25.14,
+            "lng": 55.22
+        }
+    },
+    {
+        "id": "padel-ladies-dubai",
+        "name": "Padel Ladies Dubai",
+        "platform": "WhatsApp",
+        "members": 850,
+        "link": "https://chat.whatsapp.com/padel-ladies",
+        "description": "Women-only group for social & competitive games.",
+        "location": {
+            "lat": 25.11,
+            "lng": 55.19
+        }
+    },
+    {
+        "id": "dubai-padel-tennis-fb",
+        "name": "Dubai Padel Tennis",
+        "platform": "Facebook",
+        "members": 8500,
+        "link": "https://facebook.com/groups/dubaipadel",
+        "description": "Largest FB group for finding partners and gear.",
+        "location": {
+            "lat": 25.22,
+            "lng": 55.28
+        }
+    },
+    {
+        "id": "expat-padel-league",
+        "name": "Expat Padel League",
+        "platform": "WhatsApp",
+        "members": 1200,
+        "link": "https://chat.whatsapp.com/expat-padel",
+        "description": "Competitive league for Dubai expats.",
+        "location": {
+            "lat": 25.04,
+            "lng": 55.20
+        }
+    },
+    {
+        "id": "matcha-social",
+        "name": "Matcha Social",
+        "platform": "WhatsApp",
+        "members": 1500,
+        "link": "https://chat.whatsapp.com/matcha-club",
+        "description": "For regulars at Matcha Club Al Quoz.",
+        "location": {
+            "lat": 25.135,
+            "lng": 55.225
+        }
+    },
+    {
+        "id": "padelbuddies",
+        "name": "Padel Buddies DIY",
+        "platform": "Telegram",
+        "members": 2100,
+        "link": "https://t.me/padelbuddies",
+        "description": "Self-organized games across all Dubai courts.",
         "location": {
             "lat": 25.08,
             "lng": 55.14
         }
     },
     {
-        "id": "expat-padel-dubai",
-        "name": "Expat Padel Dubai",
-        "platform": "WhatsApp",
-        "members": 890,
-        "link": "https://chat.whatsapp.com/expat-padel",
-        "description": "English-speaking padel community.",
-        "location": {
-            "lat": 25.04,
-            "lng": 55.22
-        }
-    },
-    {
-        "id": "padel-beginners-dxb",
-        "name": "Padel Beginners DXB",
+        "id": "russian-padel",
+        "name": "Russian Padel Community",
         "platform": "Telegram",
-        "members": 1650,
-        "link": "https://t.me/padelbeginners",
-        "description": "Learn padel together, friendly community for newbies.",
-        "location": {
-            "lat": 25.10,
-            "lng": 55.20
-        }
-    },
-    {
-        "id": "pro-padel-dubai",
-        "name": "Pro Padel Dubai",
-        "platform": "Facebook",
-        "members": 780,
-        "link": "https://facebook.com/groups/propadeldubai",
-        "description": "Competitive players, high-level matches only.",
-        "location": {
-            "lat": 25.25,
-            "lng": 55.30
-        }
-    },
-    {
-        "id": "russian-padel-dubai",
-        "name": "Russian Padel Dubai",
-        "platform": "Telegram",
-        "members": 420,
+        "members": 950,
         "link": "https://t.me/russianpadeldubai",
-        "description": "Русскоязычное сообщество падел в Дубае.",
+        "description": "Русскоязычное падел-комьюнити Дубая.",
         "location": {
             "lat": 25.07,
-            "lng": 55.15
+            "lng": 55.14
+        }
+    },
+    {
+        "id": "padel-academy-juniors",
+        "name": "WPA Juniors",
+        "platform": "WhatsApp",
+        "members": 400,
+        "link": "https://wpa.ae/juniors",
+        "description": "Parents and junior players group.",
+        "location": {
+            "lat": 25.125,
+            "lng": 55.210
         }
     }
 ]
