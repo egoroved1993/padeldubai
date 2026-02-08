@@ -228,7 +228,7 @@ export default function AdminPage() {
         setTimeout(() => setStatus(null), 2000);
     };
 
-    const getFlagEmoji = (code: string): string => {
+  const getFlagEmoji = (code: string): string => {
         const flags: Record<string, string> = {
             'AE': '🇦🇪', 'RU': '🇷🇺', 'GB': '🇬🇧', 'US': '🇺🇸', 'ES': '🇪🇸',
             'FR': '🇫🇷', 'DE': '🇩🇪', 'IT': '🇮🇹', 'IN': '🇮🇳', 'PK': '🇵🇰'
