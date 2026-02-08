@@ -35,7 +35,7 @@ export interface Community {
     members: number;
     link: string;
     description: string;
-    country: string;
+    country?: string;
     location: { lat: number; lng: number };
 }
 
