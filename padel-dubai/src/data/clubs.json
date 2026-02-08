@@ -5,109 +5,548 @@
         "location": {
             "lat": 25.118,
             "lng": 55.205,
-            "address": "Ripe Market, Academy Park, Umm Suqeim"
+            "address": "Ripe Market, Umm Suqeim",
+            "zone": "beach"
         },
         "rating": 4.5,
         "reviews": 120,
         "price_per_hour": 200,
-        "currency": "AED",
-        "working_hours": "6:00 AM - 12:00 AM",
-        "socials": {
-            "instagram": "https://instagram.com/padelparkdubai",
-            "facebook": "https://facebook.com/padelparkdubai"
-        },
-        "booking_url": "https://padelpark-dubai.com",
-        "images": [
-            "/images/clubs/padel-park.jpg"
+        "price_level": 2,
+        "amenities": [
+            "parking",
+            "cafe"
         ],
-        "logo": "/images/logos/padel-park.png"
+        "socials": {
+            "instagram": "https://instagram.com/padelparkdubai"
+        },
+        "booking_url": "https://padelpark-dubai.com"
     },
     {
-        "id": "matcha-club",
+        "id": "matcha-club-alquoz",
         "name": "Matcha Club",
         "location": {
-            "lat": 25.163,
-            "lng": 55.244,
-            "address": "Al Quoz"
+            "lat": 25.135,
+            "lng": 55.222,
+            "address": "Al Quoz",
+            "zone": "alquoz"
         },
         "rating": 4.8,
         "reviews": 350,
         "price_per_hour": 400,
-        "currency": "AED",
-        "working_hours": "6:00 AM - 11:00 PM",
+        "price_level": 4,
+        "amenities": [
+            "parking",
+            "vending",
+            "showers"
+        ],
         "socials": {
             "instagram": "https://instagram.com/matchaclub"
         },
-        "booking_url": "https://matcha-albateen.ae",
-        "images": [
-            "/images/clubs/matcha.jpg"
-        ],
-        "logo": "/images/logos/matcha.png"
+        "booking_url": "https://matcha-albateen.ae"
     },
     {
         "id": "just-padel-mina-rashid",
-        "name": "Just Padel (Mina Rashid)",
+        "name": "Just Padel Mina Rashid",
         "location": {
-            "lat": 25.259,
-            "lng": 55.276,
-            "address": "Mina Rashid"
+            "lat": 25.269,
+            "lng": 55.290,
+            "address": "Mina Rashid",
+            "zone": "deira"
         },
         "rating": 4.6,
         "reviews": 210,
         "price_per_hour": 220,
-        "currency": "AED",
-        "working_hours": "24 Hours",
+        "price_level": 2,
+        "amenities": [
+            "indoor",
+            "24h"
+        ],
         "socials": {
             "instagram": "https://instagram.com/justpadel_ae"
         },
-        "booking_url": "https://justpadel.ae",
-        "images": [
-            "/images/clubs/just-padel.jpg"
-        ],
-        "logo": "/images/logos/just-padel.png"
+        "booking_url": "https://justpadel.ae"
     },
     {
-        "id": "padel-pro-uae",
-        "name": "Padel Pro UAE",
+        "id": "just-padel-kite-beach",
+        "name": "Just Padel Kite Beach",
         "location": {
-            "lat": 25.168,
-            "lng": 55.231,
-            "address": "One Central, Dubai World Trade Centre"
+            "lat": 25.140,
+            "lng": 55.190,
+            "address": "Kite Beach",
+            "zone": "beach"
+        },
+        "rating": 4.5,
+        "reviews": 180,
+        "price_per_hour": 180,
+        "price_level": 2,
+        "amenities": [
+            "outdoor",
+            "beach"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/justpadel_ae"
+        },
+        "booking_url": "https://justpadel.ae"
+    },
+    {
+        "id": "padel-pro-one-central",
+        "name": "Padel Pro One Central",
+        "location": {
+            "lat": 25.222,
+            "lng": 55.282,
+            "address": "One Central, DWTC",
+            "zone": "downtown"
         },
         "rating": 4.7,
         "reviews": 180,
         "price_per_hour": 360,
-        "currency": "AED",
-        "working_hours": "7:00 AM - 12:00 AM",
+        "price_level": 3,
+        "amenities": [
+            "outdoor",
+            "cafe"
+        ],
         "socials": {
             "instagram": "https://instagram.com/padelprouae"
         },
-        "booking_url": "https://padelpro.ae",
-        "images": [
-            "/images/clubs/padel-pro.jpg"
+        "booking_url": "https://padelpro.ae"
+    },
+    {
+        "id": "padel-pro-jumeirah-park",
+        "name": "Padel Pro Jumeirah Park",
+        "location": {
+            "lat": 25.045,
+            "lng": 55.150,
+            "address": "Jumeirah Park",
+            "zone": "marina"
+        },
+        "rating": 4.6,
+        "reviews": 95,
+        "price_per_hour": 300,
+        "price_level": 3,
+        "amenities": [
+            "outdoor",
+            "parking"
         ],
-        "logo": "/images/logos/padel-pro.png"
+        "socials": {
+            "instagram": "https://instagram.com/padelprouae"
+        },
+        "booking_url": "https://padelpro.ae"
     },
     {
         "id": "central-padel",
         "name": "Central Padel Dubai",
         "location": {
-            "lat": 25.148,
-            "lng": 55.228,
-            "address": "Al Quoz"
+            "lat": 25.130,
+            "lng": 55.230,
+            "address": "Al Quoz 4",
+            "zone": "alquoz"
         },
-        "rating": 4.5,
-        "reviews": 95,
-        "price_per_hour": 300,
-        "currency": "AED",
-        "working_hours": "7:00 AM - 11:00 PM",
+        "rating": 4.2,
+        "reviews": 156,
+        "price_per_hour": 280,
+        "price_level": 3,
+        "amenities": [
+            "parking",
+            "vending"
+        ],
         "socials": {
             "instagram": "https://instagram.com/centralpadeldubai"
         },
-        "booking_url": "https://centralpadel.ae",
-        "images": [
-            "/images/clubs/central-padel.jpg"
+        "booking_url": "https://centralpadel.ae"
+    },
+    {
+        "id": "world-padel-academy",
+        "name": "World Padel Academy",
+        "location": {
+            "lat": 25.140,
+            "lng": 55.235,
+            "address": "Al Quoz",
+            "zone": "alquoz"
+        },
+        "rating": 4.4,
+        "reviews": 88,
+        "price_per_hour": 440,
+        "price_level": 4,
+        "amenities": [
+            "coaching",
+            "pro-shop"
         ],
-        "logo": "/images/logos/central-padel.png"
+        "socials": {
+            "instagram": "https://instagram.com/worldpadelacademy"
+        },
+        "booking_url": "https://wpa.ae"
+    },
+    {
+        "id": "the-alley-dxb",
+        "name": "The Alley DXB",
+        "location": {
+            "lat": 25.145,
+            "lng": 55.225,
+            "address": "Al Quoz",
+            "zone": "alquoz"
+        },
+        "rating": 4.7,
+        "reviews": 220,
+        "price_per_hour": 440,
+        "price_level": 4,
+        "amenities": [
+            "glow-in-dark",
+            "premium"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/thealleydxb"
+        },
+        "booking_url": "https://thealleydxb.com"
+    },
+    {
+        "id": "smash-padel-jebel-ali",
+        "name": "Smash Padel Jebel Ali",
+        "location": {
+            "lat": 25.010,
+            "lng": 55.110,
+            "address": "Jebel Ali Village",
+            "zone": "jebelali"
+        },
+        "rating": 4.3,
+        "reviews": 145,
+        "price_per_hour": 200,
+        "price_level": 2,
+        "amenities": [
+            "parking",
+            "cafe"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/smashpadel"
+        },
+        "booking_url": "https://smashpadel.ae"
+    },
+    {
+        "id": "smash-padel-palm",
+        "name": "Smash Padel Palm",
+        "location": {
+            "lat": 25.115,
+            "lng": 55.135,
+            "address": "Golden Mile, Palm Jumeirah",
+            "zone": "palm"
+        },
+        "rating": 4.5,
+        "reviews": 190,
+        "price_per_hour": 260,
+        "price_level": 3,
+        "amenities": [
+            "premium",
+            "parking"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/smashpadel"
+        },
+        "booking_url": "https://smashpadel.ae"
+    },
+    {
+        "id": "padel-point-alquoz",
+        "name": "Padel Point Al Quoz",
+        "location": {
+            "lat": 25.138,
+            "lng": 55.240,
+            "address": "Al Quoz",
+            "zone": "alquoz"
+        },
+        "rating": 4.1,
+        "reviews": 78,
+        "price_per_hour": 300,
+        "price_level": 3,
+        "amenities": [
+            "parking"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/padelpoint"
+        },
+        "booking_url": "https://padelpoint.ae"
+    },
+    {
+        "id": "club-padel-dubai",
+        "name": "Club Padel Dubai",
+        "location": {
+            "lat": 25.142,
+            "lng": 55.218,
+            "address": "Al Quoz",
+            "zone": "alquoz"
+        },
+        "rating": 4.0,
+        "reviews": 65,
+        "price_per_hour": 180,
+        "price_level": 2,
+        "amenities": [
+            "indoor",
+            "outdoor"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/clubpadeldubai"
+        },
+        "booking_url": "https://clubpadel.ae"
+    },
+    {
+        "id": "isd-sports-city",
+        "name": "ISD Dubai Sports City",
+        "location": {
+            "lat": 25.040,
+            "lng": 55.220,
+            "address": "Dubai Sports City",
+            "zone": "sportscity"
+        },
+        "rating": 4.2,
+        "reviews": 110,
+        "price_per_hour": 290,
+        "price_level": 2,
+        "amenities": [
+            "indoor",
+            "outdoor",
+            "parking"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/isddubai"
+        },
+        "booking_url": "https://isddubai.com"
+    },
+    {
+        "id": "padelx-jlt",
+        "name": "PadelX JLT",
+        "location": {
+            "lat": 25.075,
+            "lng": 55.145,
+            "address": "JLT Cluster 1",
+            "zone": "marina"
+        },
+        "rating": 4.6,
+        "reviews": 130,
+        "price_per_hour": 200,
+        "price_level": 2,
+        "amenities": [
+            "floating",
+            "unique"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/padelxdubai"
+        },
+        "booking_url": "https://padelx.ae"
+    },
+    {
+        "id": "padel-kingdom",
+        "name": "Padel Kingdom",
+        "location": {
+            "lat": 25.125,
+            "lng": 55.215,
+            "address": "Al Quoz 4",
+            "zone": "alquoz"
+        },
+        "rating": 4.3,
+        "reviews": 92,
+        "price_per_hour": 266,
+        "price_level": 3,
+        "amenities": [
+            "parking",
+            "cafe"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/padelkingdom"
+        },
+        "booking_url": "https://padelkingdom.ae"
+    },
+    {
+        "id": "danube-sports-world",
+        "name": "Danube Sports World",
+        "location": {
+            "lat": 25.055,
+            "lng": 55.295,
+            "address": "Al Meydan",
+            "zone": "meydan"
+        },
+        "rating": 4.4,
+        "reviews": 75,
+        "price_per_hour": 240,
+        "price_level": 2,
+        "amenities": [
+            "indoor",
+            "parking"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/danubesportsworld"
+        },
+        "booking_url": "https://danube.ae"
+    },
+    {
+        "id": "padel-vibora",
+        "name": "Padel Vibora",
+        "location": {
+            "lat": 25.128,
+            "lng": 55.208,
+            "address": "Al Quoz 4",
+            "zone": "alquoz"
+        },
+        "rating": 4.2,
+        "reviews": 55,
+        "price_per_hour": 250,
+        "price_level": 2,
+        "amenities": [
+            "outdoor"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/padelvibora"
+        },
+        "booking_url": "https://padelvibora.ae"
+    },
+    {
+        "id": "paus-club",
+        "name": "Paus Club",
+        "location": {
+            "lat": 25.150,
+            "lng": 55.200,
+            "address": "Umm Suqeim",
+            "zone": "beach"
+        },
+        "rating": 4.5,
+        "reviews": 68,
+        "price_per_hour": 300,
+        "price_level": 3,
+        "amenities": [
+            "premium",
+            "cafe"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/pausclub"
+        },
+        "booking_url": "https://pausclub.ae"
+    },
+    {
+        "id": "the-lob-dubai",
+        "name": "The Lob Dubai",
+        "location": {
+            "lat": 25.132,
+            "lng": 55.242,
+            "address": "Industrial Area 3, Al Quoz",
+            "zone": "alquoz"
+        },
+        "rating": 4.3,
+        "reviews": 82,
+        "price_per_hour": 270,
+        "price_level": 2,
+        "amenities": [
+            "wellness",
+            "spa"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/thelobdubai"
+        },
+        "booking_url": "https://thelobdubai.com"
+    },
+    {
+        "id": "redline-padel-barsha",
+        "name": "Redline Padel Al Barsha",
+        "location": {
+            "lat": 25.105,
+            "lng": 55.195,
+            "address": "Al Barsha 2",
+            "zone": "barsha"
+        },
+        "rating": 4.1,
+        "reviews": 48,
+        "price_per_hour": 180,
+        "price_level": 1,
+        "amenities": [
+            "outdoor",
+            "budget"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/redlinesportsclub"
+        },
+        "booking_url": "https://redlinesportsclub.com"
+    },
+    {
+        "id": "700-padel",
+        "name": "700 Padel & Fitness Hub",
+        "location": {
+            "lat": 25.098,
+            "lng": 55.188,
+            "address": "Al Barsha",
+            "zone": "barsha"
+        },
+        "rating": 4.4,
+        "reviews": 60,
+        "price_per_hour": 360,
+        "price_level": 3,
+        "amenities": [
+            "fitness",
+            "premium"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/700padel"
+        },
+        "booking_url": "https://700padel.ae"
+    },
+    {
+        "id": "top-padel-meaisem",
+        "name": "Top Padel Me'aisem",
+        "location": {
+            "lat": 25.025,
+            "lng": 55.175,
+            "address": "City Centre Me'aisem",
+            "zone": "jebelali"
+        },
+        "rating": 4.2,
+        "reviews": 95,
+        "price_per_hour": 190,
+        "price_level": 2,
+        "amenities": [
+            "parking",
+            "mall"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/toppadelsc"
+        },
+        "booking_url": "https://toppadelsc.com"
+    },
+    {
+        "id": "dubai-creek-golf",
+        "name": "Dubai Creek Golf Club",
+        "location": {
+            "lat": 25.245,
+            "lng": 55.335,
+            "address": "Deira",
+            "zone": "deira"
+        },
+        "rating": 4.6,
+        "reviews": 140,
+        "price_per_hour": 380,
+        "price_level": 4,
+        "amenities": [
+            "premium",
+            "golf-club"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/dubaicreekgolf"
+        },
+        "booking_url": "https://dubaigolf.com"
+    },
+    {
+        "id": "els-club-sports-city",
+        "name": "The Els Club",
+        "location": {
+            "lat": 25.035,
+            "lng": 55.230,
+            "address": "Sports City",
+            "zone": "sportscity"
+        },
+        "rating": 4.5,
+        "reviews": 88,
+        "price_per_hour": 350,
+        "price_level": 3,
+        "amenities": [
+            "premium",
+            "golf-club"
+        ],
+        "socials": {
+            "instagram": "https://instagram.com/elsclubdubai"
+        },
+        "booking_url": "https://elsclubdubai.com"
     }
 ]

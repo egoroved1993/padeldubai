@@ -1,0 +1,172 @@
+[
+    {
+        "id": "alquoz",
+        "name": "PADEL CENTRAL",
+        "label": "PADEL CENTRAL 🎾",
+        "color": "#22c55e",
+        "bounds": [
+            [
+                25.120,
+                55.200
+            ],
+            [
+                25.150,
+                55.250
+            ]
+        ],
+        "description": "Most clubs concentrated here"
+    },
+    {
+        "id": "beach",
+        "name": "BEACH VIBES",
+        "label": "CHILL BEACH VIBES 🏖️",
+        "color": "#06b6d4",
+        "bounds": [
+            [
+                25.100,
+                55.180
+            ],
+            [
+                25.160,
+                55.210
+            ]
+        ],
+        "description": "Outdoor courts near the beach"
+    },
+    {
+        "id": "marina",
+        "name": "EXPENSIVE AF",
+        "label": "EXPENSIVE AF 💸",
+        "color": "#f59e0b",
+        "bounds": [
+            [
+                25.040,
+                55.130
+            ],
+            [
+                25.090,
+                55.160
+            ]
+        ],
+        "description": "Premium locations, premium prices"
+    },
+    {
+        "id": "palm",
+        "name": "BOUGIE",
+        "label": "BOUGIE 🌴",
+        "color": "#ec4899",
+        "bounds": [
+            [
+                25.100,
+                55.120
+            ],
+            [
+                25.130,
+                55.150
+            ]
+        ],
+        "description": "The Palm lifestyle"
+    },
+    {
+        "id": "downtown",
+        "name": "BUSINESS CROWD",
+        "label": "BUSINESS CROWD 👔",
+        "color": "#8b5cf6",
+        "bounds": [
+            [
+                25.180,
+                55.260
+            ],
+            [
+                25.240,
+                55.300
+            ]
+        ],
+        "description": "After-work padel scene"
+    },
+    {
+        "id": "deira",
+        "name": "OLD DUBAI",
+        "label": "OLD DUBAI GEMS 💎",
+        "color": "#f97316",
+        "bounds": [
+            [
+                25.240,
+                55.280
+            ],
+            [
+                25.290,
+                55.350
+            ]
+        ],
+        "description": "Hidden gems in old Dubai"
+    },
+    {
+        "id": "sportscity",
+        "name": "SPORTS HUB",
+        "label": "SPORTS HUB 🏟️",
+        "color": "#3b82f6",
+        "bounds": [
+            [
+                25.025,
+                55.210
+            ],
+            [
+                25.055,
+                55.240
+            ]
+        ],
+        "description": "Dedicated sports facilities"
+    },
+    {
+        "id": "jebelali",
+        "name": "BUDGET FRIENDLY",
+        "label": "BUDGET FRIENDLY 💰",
+        "color": "#10b981",
+        "bounds": [
+            [
+                25.000,
+                55.100
+            ],
+            [
+                25.030,
+                55.180
+            ]
+        ],
+        "description": "Best value for money"
+    },
+    {
+        "id": "barsha",
+        "name": "LOCAL FAVORITES",
+        "label": "LOCAL FAVORITES ⭐",
+        "color": "#eab308",
+        "bounds": [
+            [
+                25.090,
+                55.180
+            ],
+            [
+                25.120,
+                55.205
+            ]
+        ],
+        "description": "Community clubs"
+    },
+    {
+        "id": "meydan",
+        "name": "NEW HOTSPOT",
+        "label": "NEW HOTSPOT 🔥",
+        "color": "#ef4444",
+        "bounds": [
+            [
+                25.045,
+                55.280
+            ],
+            [
+                25.070,
+                55.310
+            ]
+        ],
+        "description": "Emerging padel scene"
+    }
+]

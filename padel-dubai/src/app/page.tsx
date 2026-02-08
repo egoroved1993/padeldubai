@@ -2,103 +2,133 @@
 
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import { Menu, Map as MapIcon, Users } from 'lucide-react';
-import communitiesData from '../data/communities.json';
+import clubsData from '../data/clubs.json';
 
 const Map = dynamic(() => import('../components/Map'), {
     ssr: false,
-    loading: () => <div style={{ width: '100%', height: '100vh', background: '#111', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading Map...</div>
+    loading: () => <div style={{ width: '100%', height: '100vh', background: '#f5f5f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>LOADING MAP...</div>
 });
 
+interface Club {
+    id: string;
+    name: string;
+    location: { lat: number; lng: number; address: string; zone: string };
+    rating: number;
+    reviews: number;
+    price_per_hour: number;
+    price_level: number;
+    amenities: string[];
+    socials: { instagram?: string };
+    booking_url: string;
+}
+
 export default function Home() {
-    const [sidebarOpen, setSidebarOpen] = useState(true);
-    const [activeTab, setActiveTab] = useState<'map' | 'communities'>('map');
+    const [selectedClub, setSelectedClub] = useState<Club | null>(null);
+
+    const handleClubSelect = (club: Club) => {
+        setSelectedClub(club);
+    };
+
+    const handleClosePanel = () => {
+        setSelectedClub(null);
+    };
+
+    const renderPriceLevel = (level: number) => {
+        return Array(5).fill(0).map((_, i) => (
+            <span key={i} className={i < level ? 'price-active' : 'price-inactive'}>$</span>
+        ));
+    };
 
     return (
-        <main className="app-wrapper">
+        <div className="app-container">
+            {/* Map */}
+            <div className="map-container">
+                <Map onClubSelect={handleClubSelect} />
 
-            {/* Sidebar */}
-            <div className={`sidebar ${sidebarOpen ? '' : 'closed'}`}>
-
-                {/* Header */}
-                <div className="sidebar-header">
-                    <h1 className="app-title">Padel Dubai</h1>
-                    {/* Close button mostly for mobile, but visible here too if needed */}
-                    <button onClick={() => setSidebarOpen(false)} className="close-btn" style={{ fontSize: '1.2rem', cursor: 'pointer', display: sidebarOpen ? 'block' : 'none' }}>
-                        ✕
-                    </button>
+                {/* Legend */}
+                <div className="map-legend">
+                    <div className="legend-title">Map Legend</div>
+                    <div className="legend-item">
+                        <div className="legend-dot" style={{ background: '#ffd500' }}></div>
+                        <span>Padel Clubs</span>
+                    </div>
+                    <div className="legend-item">
+                        <div className="legend-dot" style={{ background: '#22c55e' }}></div>
+                        <span>Padel Central Zone</span>
+                    </div>
                 </div>
+            </div>
 
-                {/* Tabs */}
-                <div className="tabs">
-                    <button
-                        onClick={() => setActiveTab('map')}
-                        className={`tab-btn ${activeTab === 'map' ? 'active-clubs' : ''}`}
-                    >
-                        <MapIcon size={18} />
-                        Clubs
-                    </button>
-                    <button
-                        onClick={() => setActiveTab('communities')}
-                        className={`tab-btn ${activeTab === 'communities' ? 'active-communities' : ''}`}
-                    >
-                        <Users size={18} />
-                        Communities
-                    </button>
-                </div>
+            {/* Detail Panel */}
+            <div className={`detail-panel ${selectedClub ? 'open' : ''}`}>
+                {selectedClub && (
+                    <>
+                        <button className="detail-close" onClick={handleClosePanel}>✕</button>
 
-                {/* Content */}
-                <div className="content-area">
-                    {activeTab === 'map' && (
-                        <div className="space-y-4">
-                            <p className="text-sub">Explore the best Padel courts in Dubai. Click on markers on the map.</p>
-                        </div>
-                    )}
+                        <div className="detail-image">🎾</div>
 
-                    {activeTab === 'communities' && (
-                        <div>
-                            {communitiesData.sort((a, b) => b.members - a.members).map(community => (
-                                <div key={community.id} className="card">
-                                    <div className="card-header">
-                                        <h3 className="card-title">{community.name}</h3>
-                                        <span className="badge">
-                                            {community.platform}
-                                        </span>
-                                    </div>
-                                    <p className="card-desc">{community.description}</p>
-                                    <div className="card-footer">
-                                        <span className="members-count">
-                                            <Users size={14} /> {community.members} members
-                                        </span>
-                                        <a
-                                            href={community.link}
-                                            target="_blank"
-                                            className="join-link"
-                                        >
-                                            Join Group →
-                                        </a>
-                                    </div>
+                        <div className="detail-body">
+                            <div className="detail-header">
+                                <h2 className="detail-name">{selectedClub.name}</h2>
+                                <div className="detail-rating">★ {selectedClub.rating}</div>
+                            </div>
+
+                            <p className="detail-address">{selectedClub.location.address}, Dubai</p>
+
+                            {selectedClub.socials.instagram && (
+                                <a
+                                    href={selectedClub.socials.instagram}
+                                    target="_blank"
+                                    className="detail-cta"
+                                >
+                                    Instagram
+                                </a>
+                            )}
+
+                            <div className="detail-section">
+                                <div className="detail-label">Details</div>
+                                <div className="detail-tags">
+                                    {selectedClub.amenities.map((amenity, i) => (
+                                        <span key={i} className="detail-tag">{amenity}</span>
+                                    ))}
                                 </div>
-                            ))}
+                            </div>
+
+                            <div className="detail-section">
+                                <div className="detail-label">Price</div>
+                                <div className="detail-price">
+                                    {renderPriceLevel(selectedClub.price_level)}
+                                </div>
+                                <p style={{ marginTop: '8px', color: '#666', fontSize: '0.9rem' }}>
+                                    ~{selectedClub.price_per_hour} AED/hour
+                                </p>
+                            </div>
+
+                            <div className="detail-section">
+                                <div className="detail-label">Reviews ({selectedClub.reviews})</div>
+                                <div className="detail-reviews">
+                                    <div className="review-header">
+                                        <span className="review-author">PadelFan2024</span>
+                                        <span className="review-stars">★★★★☆</span>
+                                    </div>
+                                    <p className="review-text">
+                                        Great courts, good vibes. {selectedClub.price_level >= 3 ? 'Pricey but worth it.' : 'Good value for money.'}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <a
+                                href={selectedClub.booking_url}
+                                target="_blank"
+                                className="detail-cta"
+                                style={{ marginTop: '20px' }}
+                            >
+                                Book Now
+                            </a>
                         </div>
-                    )}
-                </div>
+                    </>
+                )}
             </div>
-
-            {/* Toggle Button (Visible when sidebar is closed) */}
-            {!sidebarOpen && (
-                <button
-                    onClick={() => setSidebarOpen(true)}
-                    className="mobile-toggle"
-                >
-                    <Menu size={24} />
-                </button>
-            )}
-
-            {/* Map Area */}
-            <div className="map-view">
-                <Map />
-            </div>
-        </main>
+        </div>
     );
 }
