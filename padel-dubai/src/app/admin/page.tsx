@@ -309,7 +309,7 @@ export default function AdminPage() {
                             {communities.map(community => (
                                 <div key={community.id} className="item-card">
                                     <div className="item-info">
-                                        <h3>{getFlagEmoji(community.country)} {community.name || 'Unnamed'}</h3>
+                                        <h3>{getFlagEmoji(community.country || 'AE')} {community.name || 'Unnamed'}</h3>
                                         <p>{community.platform} • {community.members} members</p>
                                     </div>
                                     <div className="item-actions">
