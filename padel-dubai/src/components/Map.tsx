@@ -1,66 +1,15 @@
-'use client';
-
-import { MapContainer, TileLayer, Marker, Tooltip, Rectangle } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
-import { useState } from 'react';
-import clubsData from '../data/clubs.json';
-import communitiesData from '../data/communities.json';
-import zonesData from '../data/zones.json';
-
-// Custom yellow marker icon for clubs
-const clubIcon = L.divIcon({
-    className: 'custom-marker-wrapper',
-    html: `<div style="
-    background: #ffd500;
-    border: 3px solid #1a1a1a;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  ">🎾</div>`,
-    iconSize: [28, 28],
-    iconAnchor: [14, 14],
-});
-
-// Blue marker icon for communities
-const communityIcon = L.divIcon({
-    className: 'custom-marker-wrapper',
-    html: `<div style="
-    background: #3b82f6;
-    border: 3px solid #1a1a1a;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    color: white;
-  ">👥</div>`,
-    iconSize: [28, 28],
-    iconAnchor: [14, 14],
-});
 
 interface Club {
     id: string;
     name: string;
     location: { lat: number; lng: number; address: string; zone: string };
     rating: number;
-    reviews_count: number;
     price_per_hour: number;
-    price_level: number;
-    amenities: string[];
-    images: string[];
-    socials: { instagram?: string; facebook?: string; twitter?: string; tiktok?: string; youtube?: string; linkedin?: string; website?: string };
-    booking_url: string;
-    reviews: { author: string; rating: number; text: string }[];
+    currency?: string;
+    socials: Record<string, string>;
+    booking_url?: string;
 }
 
 interface Community {
@@ -73,129 +22,115 @@ interface Community {
     location?: { lat: number; lng: number };
 }
 
-interface Zone {
-    id: string;
-    name: string;
-    label: string;
-    color: string;
-    bounds: [[number, number], [number, number]];
-    description: string;
-}
+// Clubs Marker: Blue
+const clubIcon = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/markers-default/blue.png',
+    iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/markers-default/blue-2x.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+// Communities Marker: Gold
+const communityIcon = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/markers-default/gold.png',
+    iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/markers-default/gold-2x.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
 
 interface MapProps {
-    onClubSelect: (club: Club) => void;
-    onCommunitySelect: (community: Community) => void;
+    clubs: Club[];
+    communities: Community[];
+    onClubSelect?: (club: Club) => void;
+    onCommunitySelect?: (community: Community) => void;
     showClubs: boolean;
     showCommunities: boolean;
 }
 
-export default function Map({ onClubSelect, onCommunitySelect, showClubs, showCommunities }: MapProps) {
-    const [clubs] = useState<Club[]>(clubsData as Club[]);
-    const [communities] = useState<Community[]>(communitiesData as Community[]);
-    const [zones] = useState<Zone[]>(zonesData as Zone[]);
+export default function Map({ clubs, communities, onClubSelect, onCommunitySelect, showClubs, showCommunities }: MapProps) {
 
     return (
         <MapContainer
-            center={[25.12, 55.20]}
-            zoom={12}
+            center={[25.15, 55.23]}
+            zoom={11}
             scrollWheelZoom={true}
-            style={{ height: "100%", width: "100%" }}
-            zoomControl={true}
+            style={{ height: "100%", width: "100%", background: "#242f3e" }}
         >
-            {/* Light Map Tiles */}
             <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
             />
 
-            {/* Zone Rectangles with Labels */}
-            {zones.map((zone) => (
-                <Rectangle
-                    key={zone.id}
-                    bounds={zone.bounds as L.LatLngBoundsExpression}
-                    pathOptions={{
-                        color: zone.color,
-                        weight: 3,
-                        dashArray: '8, 8',
-                        fillColor: zone.color,
-                        fillOpacity: 0.08,
-                    }}
-                >
-                    <Tooltip
-                        permanent
-                        direction="center"
-                        className="zone-tooltip"
-                    >
-                        <span style={{
-                            fontFamily: 'Inter, sans-serif',
-                            fontWeight: 900,
-                            fontSize: '11px',
-                            textTransform: 'uppercase',
-                            letterSpacing: '1px',
-                            color: zone.color,
-                            textShadow: '1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white',
-                            whiteSpace: 'nowrap',
-                        }}>
-                            {zone.label}
-                        </span>
-                    </Tooltip>
-                </Rectangle>
-            ))}
-
-            {/* Club Markers */}
+            {/* Clubs Layer */}
             {showClubs && clubs.map((club) => (
                 <Marker
                     key={club.id}
                     position={[club.location.lat, club.location.lng]}
                     icon={clubIcon}
                     eventHandlers={{
-                        click: () => onClubSelect(club),
+                        click: () => onClubSelect?.(club),
                     }}
                 >
-                    <Tooltip direction="top" offset={[0, -12]}>
-                        <div style={{
-                            fontFamily: 'Inter, sans-serif',
-                            fontWeight: 700,
-                            fontSize: '11px',
-                            padding: '4px 8px',
-                            background: '#1a1a1a',
-                            color: '#fff',
-                            textTransform: 'uppercase',
-                        }}>
-                            {club.name}
+                    <Popup>
+                        <div className="flex flex-col">
+                            <div className="h-24 bg-blue-900/50 w-full relative mb-2 rounded-t-lg flex items-center justify-center">
+                                <span className="text-2xl">🎾</span>
+                            </div>
+                            <div className="p-2">
+                                <h3 className="text-base font-bold text-white mb-1">{club.name}</h3>
+                                <p className="text-xs text-gray-400 mb-1">{club.location.address}</p>
+                                <div className="flex justify-between items-center text-xs mb-2">
+                                    <span className="text-yellow-400">★ {club.rating}</span>
+                                    <span className="text-green-400">{club.price_per_hour} AED/hr</span>
+                                </div>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {club.socials.instagram && (
+                                        <a href={club.socials.instagram} target="_blank" rel="noopener noreferrer" className="bg-pink-600 hover:bg-pink-700 text-white text-xs py-1 px-2 rounded text-center transition-colors">Instagram</a>
+                                    )}
+                                    {club.booking_url && (
+                                        <a href={club.booking_url} target="_blank" rel="noopener noreferrer" className="bg-blue-600 hover:bg-blue-700 text-white text-xs py-1 px-2 rounded text-center transition-colors">Book</a>
+                                    )}
+                                </div>
+                            </div>
                         </div>
-                    </Tooltip>
+                    </Popup>
                 </Marker>
             ))}
 
-            {/* Community Markers */}
+            {/* Communities Layer */}
             {showCommunities && communities.map((community) => (
-                community.location && (
+                community.location ? (
                     <Marker
                         key={community.id}
                         position={[community.location.lat, community.location.lng]}
                         icon={communityIcon}
                         eventHandlers={{
-                            click: () => onCommunitySelect(community),
+                            click: () => onCommunitySelect?.(community),
                         }}
                     >
-                        <Tooltip direction="top" offset={[0, -12]}>
-                            <div style={{
-                                fontFamily: 'Inter, sans-serif',
-                                fontWeight: 700,
-                                fontSize: '11px',
-                                padding: '4px 8px',
-                                background: '#3b82f6',
-                                color: '#fff',
-                                textTransform: 'uppercase',
-                            }}>
-                                {community.name} ({community.members})
+                        <Popup>
+                            <div className="p-2 w-48">
+                                <h3 className="text-base font-bold text-yellow-500 mb-1">{community.name}</h3>
+                                <span className="bg-gray-700 text-gray-300 text-xs px-2 py-0.5 rounded-full mb-2 inline-block">
+                                    {community.platform}
+                                </span>
+                                <p className="text-xs text-gray-300 mb-2">{community.description}</p>
+                                <a href={community.link} target="_blank" rel="noopener noreferrer" className="block w-full bg-yellow-600 hover:bg-yellow-700 text-white text-xs py-1 rounded text-center transition-colors">
+                                    Join Group
+                                </a>
                             </div>
-                        </Tooltip>
+                        </Popup>
                     </Marker>
-                )
+                ) : null
             ))}
 
         </MapContainer>
     );
 }
+
