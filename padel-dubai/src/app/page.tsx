@@ -7,7 +7,7 @@ import communitiesData from '../data/communities.json';
 
 const Map = dynamic(() => import('../components/Map'), {
     ssr: false,
-    loading: () => <div className="w-full h-screen bg-gray-900 flex items-center justify-center text-white">Loading Map...</div>
+    loading: () => <div style={{ width: '100%', height: '100vh', background: '#111', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading Map...</div>
 });
 
 export default function Home() {
@@ -15,32 +15,32 @@ export default function Home() {
     const [activeTab, setActiveTab] = useState<'map' | 'communities'>('map');
 
     return (
-        <main className="flex h-screen w-full relative">
-            {/* Sidebar / Overlay */}
-            <div className={`absolute top-0 left-0 h-full z-[1000] bg-gray-900/95 backdrop-blur-md w-full md:w-[400px] transition-transform duration-300 border-r border-gray-800 flex flex-col ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <main className="app-wrapper">
+
+            {/* Sidebar */}
+            <div className={`sidebar ${sidebarOpen ? '' : 'closed'}`}>
 
                 {/* Header */}
-                <div className="p-4 border-b border-gray-800 flex justify-between items-center">
-                    <h1 className="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-                        Padel Dubai
-                    </h1>
-                    <button onClick={() => setSidebarOpen(false)} className="md:hidden text-gray-400 hover:text-white">
+                <div className="sidebar-header">
+                    <h1 className="app-title">Padel Dubai</h1>
+                    {/* Close button mostly for mobile, but visible here too if needed */}
+                    <button onClick={() => setSidebarOpen(false)} className="close-btn" style={{ fontSize: '1.2rem', cursor: 'pointer', display: sidebarOpen ? 'block' : 'none' }}>
                         ✕
                     </button>
                 </div>
 
                 {/* Tabs */}
-                <div className="flex p-2 gap-2 border-b border-gray-800">
+                <div className="tabs">
                     <button
                         onClick={() => setActiveTab('map')}
-                        className={`flex-1 py-2 px-4 rounded-lg flex items-center justify-center gap-2 ${activeTab === 'map' ? 'bg-yellow-500/10 text-yellow-500' : 'text-gray-400 hover:bg-gray-800'}`}
+                        className={`tab-btn ${activeTab === 'map' ? 'active-clubs' : ''}`}
                     >
                         <MapIcon size={18} />
                         Clubs
                     </button>
                     <button
                         onClick={() => setActiveTab('communities')}
-                        className={`flex-1 py-2 px-4 rounded-lg flex items-center justify-center gap-2 ${activeTab === 'communities' ? 'bg-blue-500/10 text-blue-500' : 'text-gray-400 hover:bg-gray-800'}`}
+                        className={`tab-btn ${activeTab === 'communities' ? 'active-communities' : ''}`}
                     >
                         <Users size={18} />
                         Communities
@@ -48,35 +48,34 @@ export default function Home() {
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 overflow-y-auto p-4">
+                <div className="content-area">
                     {activeTab === 'map' && (
                         <div className="space-y-4">
-                            <p className="text-gray-400 text-sm">Explore the best Padel courts in Dubai. Click on markers for details.</p>
-                            {/* List view of clubs could go here if needed, but the map is primary */}
+                            <p className="text-sub">Explore the best Padel courts in Dubai. Click on markers on the map.</p>
                         </div>
                     )}
 
                     {activeTab === 'communities' && (
-                        <div className="space-y-4">
+                        <div>
                             {communitiesData.sort((a, b) => b.members - a.members).map(community => (
-                                <div key={community.id} className="bg-gray-800 p-4 rounded-xl border border-gray-700 hover:border-blue-500/50 transition-colors">
-                                    <div className="flex justify-between items-start mb-2">
-                                        <h3 className="font-bold text-white">{community.name}</h3>
-                                        <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded-full">
+                                <div key={community.id} className="card">
+                                    <div className="card-header">
+                                        <h3 className="card-title">{community.name}</h3>
+                                        <span className="badge">
                                             {community.platform}
                                         </span>
                                     </div>
-                                    <p className="text-gray-400 text-sm mb-3">{community.description}</p>
-                                    <div className="flex justify-between items-center text-sm">
-                                        <span className="text-gray-500 flex items-center gap-1">
+                                    <p className="card-desc">{community.description}</p>
+                                    <div className="card-footer">
+                                        <span className="members-count">
                                             <Users size={14} /> {community.members} members
                                         </span>
                                         <a
                                             href={community.link}
                                             target="_blank"
-                                            className="text-blue-400 hover:text-blue-300 font-medium"
+                                            className="join-link"
                                         >
-                                            Join {community.platform === 'Telegram' ? 'Channel' : 'Group'} →
+                                            Join Group →
                                         </a>
                                     </div>
                                 </div>
@@ -86,18 +85,18 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* Toggle Button (Mobile) */}
+            {/* Toggle Button (Visible when sidebar is closed) */}
             {!sidebarOpen && (
                 <button
                     onClick={() => setSidebarOpen(true)}
-                    className="absolute top-4 left-4 z-[1000] bg-gray-900 text-white p-3 rounded-full shadow-lg"
+                    className="mobile-toggle"
                 >
                     <Menu size={24} />
                 </button>
             )}
 
             {/* Map Area */}
-            <div className="flex-1 h-full w-full">
+            <div className="map-view">
                 <Map />
             </div>
         </main>
