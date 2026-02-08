@@ -6,6 +6,7 @@
         "members": 15000,
         "link": "https://easypadel.ae",
         "description": "The go-to app for matchmaking and tournaments in Dubai.",
+        "country": "AE",
         "location": {
             "lat": 25.10,
             "lng": 55.15
@@ -18,6 +19,7 @@
         "members": 25000,
         "link": "https://playtomic.io",
         "description": "Global community, find players for friendly matches.",
+        "country": "AE",
         "location": {
             "lat": 25.20,
             "lng": 55.27
@@ -30,6 +32,7 @@
         "members": 3200,
         "link": "https://t.me/padelpeopledubai",
         "description": "Active group for arranging open matches daily.",
+        "country": "AE",
         "location": {
             "lat": 25.14,
             "lng": 55.22
@@ -42,6 +45,7 @@
         "members": 850,
         "link": "https://chat.whatsapp.com/padel-ladies",
         "description": "Women-only group for social & competitive games.",
+        "country": "AE",
         "location": {
             "lat": 25.11,
             "lng": 55.19
@@ -54,6 +58,7 @@
         "members": 8500,
         "link": "https://facebook.com/groups/dubaipadel",
         "description": "Largest FB group for finding partners and gear.",
+        "country": "AE",
         "location": {
             "lat": 25.22,
             "lng": 55.28
@@ -66,6 +71,7 @@
         "members": 1200,
         "link": "https://chat.whatsapp.com/expat-padel",
         "description": "Competitive league for Dubai expats.",
+        "country": "AE",
         "location": {
             "lat": 25.04,
             "lng": 55.20
@@ -78,6 +84,7 @@
         "members": 1500,
         "link": "https://chat.whatsapp.com/matcha-club",
         "description": "For regulars at Matcha Club Al Quoz.",
+        "country": "AE",
         "location": {
             "lat": 25.135,
             "lng": 55.225
@@ -90,6 +97,7 @@
         "members": 2100,
         "link": "https://t.me/padelbuddies",
         "description": "Self-organized games across all Dubai courts.",
+        "country": "AE",
         "location": {
             "lat": 25.08,
             "lng": 55.14
@@ -102,6 +110,7 @@
         "members": 950,
         "link": "https://t.me/russianpadeldubai",
         "description": "Русскоязычное падел-комьюнити Дубая.",
+        "country": "RU",
         "location": {
             "lat": 25.07,
             "lng": 55.14
@@ -114,6 +123,7 @@
         "members": 400,
         "link": "https://wpa.ae/juniors",
         "description": "Parents and junior players group.",
+        "country": "AE",
         "location": {
             "lat": 25.125,
             "lng": 55.210

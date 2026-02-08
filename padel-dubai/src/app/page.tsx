@@ -1,9 +1,10 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
-import clubsData from '../data/clubs.json';
-import communitiesData from '../data/communities.json';
+import { useState, useEffect } from 'react';
+import { supabase, getClubs, getCommunities, Club, Community } from '@/lib/supabase';
+import localClubsData from '../data/clubs.json';
+import localCommunitiesData from '../data/communities.json';
 
 const Map = dynamic(() => import('../components/Map'), {
     ssr: false,
@@ -16,40 +17,81 @@ interface Review {
     text: string;
 }
 
-interface Club {
-    id: string;
-    name: string;
-    location: { lat: number; lng: number; address: string; zone: string };
-    rating: number;
-    reviews_count: number;
-    price_per_hour: number;
-    price_level: number;
-    amenities: string[];
-    images: string[];
-    socials: { instagram?: string; facebook?: string; twitter?: string; tiktok?: string; youtube?: string; linkedin?: string; website?: string };
-    booking_url: string;
-    reviews: Review[];
-}
-
-interface Community {
-    id: string;
-    name: string;
-    platform: string;
-    members: number;
-    link: string;
-    description: string;
-    location?: { lat: number; lng: number };
-}
-
 export default function Home() {
+    const [clubs, setClubs] = useState<Club[]>([]);
+    const [communities, setCommunities] = useState<Community[]>([]);
     const [selectedClub, setSelectedClub] = useState<Club | null>(null);
     const [selectedCommunity, setSelectedCommunity] = useState<Community | null>(null);
     const [showCommunities, setShowCommunities] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [showClubs, setShowClubs] = useState(true);
     const [showCommunitiesOnMap, setShowCommunitiesOnMap] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const communities = (communitiesData as Community[]).sort((a, b) => b.members - a.members);
+    useEffect(() => {
+        loadData();
+
+        // Set up real-time subscription if Supabase is configured
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        if (supabaseUrl) {
+            const clubsSubscription = supabase
+                .channel('clubs-changes')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'clubs' }, () => {
+                    loadData();
+                })
+                .subscribe();
+
+            const communitiesSubscription = supabase
+                .channel('communities-changes')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'communities' }, () => {
+                    loadData();
+                })
+                .subscribe();
+
+            return () => {
+                supabase.removeChannel(clubsSubscription);
+                supabase.removeChannel(communitiesSubscription);
+            };
+        }
+    }, []);
+
+    const loadData = async () => {
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+
+        if (!supabaseUrl) {
+            // Use local JSON
+            setClubs(localClubsData as Club[]);
+            setCommunities((localCommunitiesData as Community[]).sort((a, b) => b.members - a.members));
+            setIsLoading(false);
+            return;
+        }
+
+        try {
+            const [clubsData, communitiesData] = await Promise.all([
+                getClubs(),
+                getCommunities()
+            ]);
+
+            // If database is empty, use local data
+            if (clubsData.length === 0) {
+                setClubs(localClubsData as Club[]);
+            } else {
+                setClubs(clubsData);
+            }
+
+            if (communitiesData.length === 0) {
+                setCommunities((localCommunitiesData as Community[]).sort((a, b) => b.members - a.members));
+            } else {
+                setCommunities(communitiesData);
+            }
+        } catch (error) {
+            console.error('Error loading data:', error);
+            setClubs(localClubsData as Club[]);
+            setCommunities((localCommunitiesData as Community[]).sort((a, b) => b.members - a.members));
+        }
+
+        setIsLoading(false);
+    };
 
     const handleClubSelect = (club: Club) => {
         setSelectedClub(club);
@@ -85,6 +127,7 @@ export default function Home() {
             case 'whatsapp': return '💬';
             case 'facebook': return '📘';
             case 'meetup': return '🤝';
+            case 'app': return '📱';
             default: return '🔗';
         }
     };
@@ -102,70 +145,78 @@ export default function Home() {
         }
     };
 
+    const getFlagEmoji = (code: string): string => {
+        const flags: Record<string, string> = {
+            'AE': '🇦🇪', 'RU': '🇷🇺', 'GB': '🇬🇧', 'US': '🇺🇸', 'ES': '🇪🇸',
+            'FR': '🇫🇷', 'DE': '🇩🇪', 'IT': '🇮🇹', 'IN': '🇮🇳', 'PK': '🇵🇰'
+        };
+        return flags[code] || '🏳️';
+    };
+
     const nextImage = () => {
-        if (selectedClub && selectedClub.images.length > 1) {
-            setCurrentImageIndex((prev) => (prev + 1) % selectedClub.images.length);
+        if (selectedClub && selectedClub.images) {
+            setCurrentImageIndex(prev => (prev + 1) % selectedClub.images.length);
         }
     };
 
     const prevImage = () => {
-        if (selectedClub && selectedClub.images.length > 1) {
-            setCurrentImageIndex((prev) => (prev - 1 + selectedClub.images.length) % selectedClub.images.length);
+        if (selectedClub && selectedClub.images) {
+            setCurrentImageIndex(prev => (prev - 1 + selectedClub.images.length) % selectedClub.images.length);
         }
     };
 
-    return (
-        <div className="app-container">
-            {/* Map */}
-            <div className="map-container">
-                <Map
-                    onClubSelect={handleClubSelect}
-                    onCommunitySelect={handleCommunitySelect}
-                    showClubs={showClubs}
-                    showCommunities={showCommunitiesOnMap}
-                />
+    if (isLoading) {
+        return (
+            <div style={{ width: '100%', height: '100vh', background: '#f5f5f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
+                LOADING...
+            </div>
+        );
+    }
 
-                {/* Legend */}
-                <div className="map-legend">
-                    <div className="legend-title">MAP LEGEND</div>
-                    <label className="legend-item">
-                        <input type="checkbox" checked={showClubs} onChange={(e) => setShowClubs(e.target.checked)} />
-                        <div className="legend-dot" style={{ background: '#ffd500' }}></div>
-                        <span>Padel Clubs</span>
-                    </label>
-                    <label className="legend-item">
-                        <input type="checkbox" checked={showCommunitiesOnMap} onChange={(e) => setShowCommunitiesOnMap(e.target.checked)} />
-                        <div className="legend-dot" style={{ background: '#3b82f6' }}></div>
-                        <span>Communities</span>
-                    </label>
-                    <button
-                        className="legend-btn"
-                        onClick={() => setShowCommunities(!showCommunities)}
-                    >
-                        {showCommunities ? 'HIDE LIST' : 'COMMUNITIES LIST'}
-                    </button>
-                </div>
+    return (
+        <div className="container">
+            {/* Map Legend */}
+            <div className="legend">
+                <div className="legend-title">🎾 PADEL DUBAI</div>
+                <label className="legend-item">
+                    <input type="checkbox" checked={showClubs} onChange={e => setShowClubs(e.target.checked)} />
+                    <span className="legend-marker" style={{ background: '#ffd500' }}></span>
+                    Clubs ({clubs.length})
+                </label>
+                <label className="legend-item">
+                    <input type="checkbox" checked={showCommunitiesOnMap} onChange={e => setShowCommunitiesOnMap(e.target.checked)} />
+                    <span className="legend-marker" style={{ background: '#3b82f6' }}></span>
+                    Communities ({communities.length})
+                </label>
+                <button className="communities-btn" onClick={() => setShowCommunities(!showCommunities)}>
+                    {showCommunities ? '✕ Close' : '👥 Communities'}
+                </button>
             </div>
 
-            {/* Communities List Panel */}
-            {showCommunities && !selectedClub && !selectedCommunity && (
+            {/* Map */}
+            <Map
+                clubs={clubs}
+                communities={communities}
+                onClubSelect={handleClubSelect}
+                onCommunitySelect={handleCommunitySelect}
+                showClubs={showClubs}
+                showCommunities={showCommunitiesOnMap}
+            />
+
+            {/* Communities Panel */}
+            {showCommunities && (
                 <div className="communities-panel">
                     <div className="panel-header">
-                        <h2>COMMUNITIES</h2>
-                        <button className="detail-close" onClick={() => setShowCommunities(false)}>✕</button>
+                        <h2>👥 Communities</h2>
+                        <button onClick={() => setShowCommunities(false)}>✕</button>
                     </div>
                     <div className="communities-list">
-                        {communities.map((community) => (
-                            <div
-                                key={community.id}
-                                className="community-card"
-                                onClick={() => handleCommunitySelect(community)}
-                            >
-                                <div className="community-icon">{getPlatformIcon(community.platform)}</div>
+                        {communities.map(community => (
+                            <div key={community.id} className="community-card" onClick={() => handleCommunitySelect(community)}>
+                                <span className="platform-icon">{getPlatformIcon(community.platform)}</span>
                                 <div className="community-info">
-                                    <h3>{community.name}</h3>
-                                    <p className="community-platform">{community.platform}</p>
-                                    <p className="community-members">{community.members.toLocaleString()} members</p>
+                                    <span className="community-name">{getFlagEmoji(community.country || 'AE')} {community.name}</span>
+                                    <span className="community-meta">{community.platform} • {community.members.toLocaleString()} members</span>
                                 </div>
                             </div>
                         ))}
@@ -174,13 +225,13 @@ export default function Home() {
             )}
 
             {/* Club Detail Panel */}
-            <div className={`detail-panel ${selectedClub ? 'open' : ''}`}>
-                {selectedClub && (
-                    <>
-                        <button className="detail-close" onClick={handleClosePanel}>✕</button>
+            {selectedClub && (
+                <div className="detail-panel">
+                    <button className="close-btn" onClick={handleClosePanel}>✕</button>
 
-                        {/* Image Gallery */}
-                        <div className="detail-gallery">
+                    {/* Image Gallery */}
+                    {selectedClub.images && selectedClub.images.length > 0 && (
+                        <div className="gallery">
                             <img
                                 src={selectedClub.images[currentImageIndex]}
                                 alt={selectedClub.name}
@@ -188,122 +239,118 @@ export default function Home() {
                             />
                             {selectedClub.images.length > 1 && (
                                 <>
-                                    <button className="gallery-btn gallery-prev" onClick={prevImage}>‹</button>
-                                    <button className="gallery-btn gallery-next" onClick={nextImage}>›</button>
+                                    <button className="gallery-nav prev" onClick={prevImage}>‹</button>
+                                    <button className="gallery-nav next" onClick={nextImage}>›</button>
                                     <div className="gallery-dots">
                                         {selectedClub.images.map((_, i) => (
                                             <span
                                                 key={i}
-                                                className={`gallery-dot ${i === currentImageIndex ? 'active' : ''}`}
+                                                className={`dot ${i === currentImageIndex ? 'active' : ''}`}
                                                 onClick={() => setCurrentImageIndex(i)}
-                                            ></span>
+                                            />
                                         ))}
                                     </div>
                                 </>
                             )}
                         </div>
+                    )}
 
-                        <div className="detail-body">
-                            <div className="detail-header">
-                                <h2 className="detail-name">{selectedClub.name}</h2>
-                                <div className="detail-rating">★ {selectedClub.rating}</div>
-                            </div>
+                    <div className="panel-content">
+                        <h2>{selectedClub.name}</h2>
+                        <div className="rating">
+                            <span className="stars">{renderStars(Math.round(selectedClub.rating))}</span>
+                            <span>{selectedClub.rating} ({selectedClub.reviews_count} reviews)</span>
+                        </div>
+                        <div className="price-line">
+                            <span className="price">{selectedClub.price_per_hour} AED/hr</span>
+                            <span className="price-level">{renderPriceLevel(selectedClub.price_level)}</span>
+                        </div>
+                        <p className="address">{selectedClub.location.address}</p>
 
-                            <p className="detail-address">{selectedClub.location.address}, Dubai</p>
-
-                            {/* Social Icons */}
-                            <div className="social-icons">
-                                {Object.entries(selectedClub.socials).map(([key, url]) => (
-                                    url && (
-                                        <a key={key} href={url} target="_blank" className="social-icon" title={key}>
-                                            {getSocialIcon(key)}
+                        {/* Socials */}
+                        {selectedClub.socials && Object.keys(selectedClub.socials).length > 0 && (
+                            <div className="socials">
+                                <h3>📱 Links</h3>
+                                <div className="socials-grid">
+                                    {Object.entries(selectedClub.socials).map(([key, url]) => url && (
+                                        <a key={key} href={url} target="_blank" rel="noopener noreferrer" className="social-link">
+                                            {getSocialIcon(key)} {key}
                                         </a>
-                                    )
-                                ))}
-                            </div>
-
-                            <div className="detail-section">
-                                <div className="detail-label">Details</div>
-                                <div className="detail-tags">
-                                    {selectedClub.amenities.map((amenity, i) => (
-                                        <span key={i} className="detail-tag">{amenity}</span>
                                     ))}
                                 </div>
                             </div>
+                        )}
 
-                            <div className="detail-section">
-                                <div className="detail-label">Price</div>
-                                <div className="detail-price">
-                                    {renderPriceLevel(selectedClub.price_level)}
+                        {/* Amenities */}
+                        {selectedClub.amenities && selectedClub.amenities.length > 0 && (
+                            <div className="amenities">
+                                <h3>✨ Amenities</h3>
+                                <div className="amenities-list">
+                                    {selectedClub.amenities.map((amenity, i) => (
+                                        <span key={i} className="amenity-tag">{amenity}</span>
+                                    ))}
                                 </div>
-                                <p style={{ marginTop: '8px', color: '#666', fontSize: '0.9rem' }}>
-                                    ~{selectedClub.price_per_hour} AED/hour
-                                </p>
                             </div>
+                        )}
 
-                            <div className="detail-section">
-                                <div className="detail-label">Reviews ({selectedClub.reviews_count})</div>
+                        {/* Reviews */}
+                        {selectedClub.reviews && selectedClub.reviews.length > 0 && (
+                            <div className="reviews">
+                                <h3>💬 Reviews ({selectedClub.reviews.length})</h3>
                                 <div className="reviews-list">
                                     {selectedClub.reviews.slice(0, 10).map((review, i) => (
-                                        <div key={i} className="review-item">
+                                        <div key={i} className="review">
                                             <div className="review-header">
                                                 <span className="review-author">{review.author}</span>
-                                                <span className="review-stars">{renderStars(review.rating)}</span>
+                                                <span className="review-rating">{renderStars(review.rating)}</span>
                                             </div>
                                             <p className="review-text">{review.text}</p>
                                         </div>
                                     ))}
                                 </div>
                             </div>
+                        )}
 
+                        {/* Book Button */}
+                        {selectedClub.booking_url && (
                             <a
                                 href={selectedClub.booking_url}
                                 target="_blank"
-                                className="detail-cta"
+                                rel="noopener noreferrer"
+                                className="book-btn"
                             >
-                                Book Now
+                                BOOK NOW
                             </a>
-                        </div>
-                    </>
-                )}
-            </div>
+                        )}
+                    </div>
+                </div>
+            )}
 
             {/* Community Detail Panel */}
-            <div className={`detail-panel ${selectedCommunity ? 'open' : ''}`}>
-                {selectedCommunity && (
-                    <>
-                        <button className="detail-close" onClick={handleClosePanel}>✕</button>
-
-                        <div className="detail-image" style={{ background: '#3b82f6', color: 'white' }}>
-                            <span style={{ fontSize: '4rem' }}>{getPlatformIcon(selectedCommunity.platform)}</span>
+            {selectedCommunity && (
+                <div className="detail-panel">
+                    <button className="close-btn" onClick={handleClosePanel}>✕</button>
+                    <div className="panel-content">
+                        <div className="community-header">
+                            <span className="big-icon">{getPlatformIcon(selectedCommunity.platform)}</span>
+                            <h2>{getFlagEmoji(selectedCommunity.country || 'AE')} {selectedCommunity.name}</h2>
                         </div>
-
-                        <div className="detail-body">
-                            <div className="detail-header">
-                                <h2 className="detail-name">{selectedCommunity.name}</h2>
-                                <div className="detail-rating" style={{ background: '#3b82f6', color: 'white' }}>
-                                    {selectedCommunity.members.toLocaleString()}
-                                </div>
-                            </div>
-
-                            <p className="detail-address">{selectedCommunity.platform} • {selectedCommunity.members.toLocaleString()} members</p>
-
-                            <p style={{ margin: '16px 0', color: '#666', fontSize: '0.95rem', lineHeight: 1.5 }}>
-                                {selectedCommunity.description}
-                            </p>
-
-                            <a
-                                href={selectedCommunity.link}
-                                target="_blank"
-                                className="detail-cta"
-                                style={{ background: '#3b82f6' }}
-                            >
-                                Join {selectedCommunity.platform}
-                            </a>
+                        <div className="community-stats">
+                            <span className="stat">{selectedCommunity.platform}</span>
+                            <span className="stat">{selectedCommunity.members.toLocaleString()} members</span>
                         </div>
-                    </>
-                )}
-            </div>
+                        <p className="description">{selectedCommunity.description}</p>
+                        <a
+                            href={selectedCommunity.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="join-btn"
+                        >
+                            JOIN COMMUNITY
+                        </a>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
