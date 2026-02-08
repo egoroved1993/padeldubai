@@ -1,0 +1,113 @@
+[
+    {
+        "id": "padel-park-dubai",
+        "name": "Padel Park Dubai",
+        "location": {
+            "lat": 25.118,
+            "lng": 55.205,
+            "address": "Ripe Market, Academy Park, Umm Suqeim"
+        },
+        "rating": 4.5,
+        "reviews": 120,
+        "price_per_hour": 200,
+        "currency": "AED",
+        "working_hours": "6:00 AM - 12:00 AM",
+        "socials": {
+            "instagram": "https://instagram.com/padelparkdubai",
+            "facebook": "https://facebook.com/padelparkdubai"
+        },
+        "booking_url": "https://padelpark-dubai.com",
+        "images": [
+            "/images/clubs/padel-park.jpg"
+        ],
+        "logo": "/images/logos/padel-park.png"
+    },
+    {
+        "id": "matcha-club",
+        "name": "Matcha Club",
+        "location": {
+            "lat": 25.163,
+            "lng": 55.244,
+            "address": "Al Quoz"
+        },
+        "rating": 4.8,
+        "reviews": 350,
+        "price_per_hour": 400,
+        "currency": "AED",
+        "working_hours": "6:00 AM - 11:00 PM",
+        "socials": {
+            "instagram": "https://instagram.com/matchaclub"
+        },
+        "booking_url": "https://matcha-albateen.ae",
+        "images": [
+            "/images/clubs/matcha.jpg"
+        ],
+        "logo": "/images/logos/matcha.png"
+    },
+    {
+        "id": "just-padel-mina-rashid",
+        "name": "Just Padel (Mina Rashid)",
+        "location": {
+            "lat": 25.259,
+            "lng": 55.276,
+            "address": "Mina Rashid"
+        },
+        "rating": 4.6,
+        "reviews": 210,
+        "price_per_hour": 220,
+        "currency": "AED",
+        "working_hours": "24 Hours",
+        "socials": {
+            "instagram": "https://instagram.com/justpadel_ae"
+        },
+        "booking_url": "https://justpadel.ae",
+        "images": [
+            "/images/clubs/just-padel.jpg"
+        ],
+        "logo": "/images/logos/just-padel.png"
+    },
+    {
+        "id": "padel-pro-uae",
+        "name": "Padel Pro UAE",
+        "location": {
+            "lat": 25.168,
+            "lng": 55.231,
+            "address": "One Central, Dubai World Trade Centre"
+        },
+        "rating": 4.7,
+        "reviews": 180,
+        "price_per_hour": 360,
+        "currency": "AED",
+        "working_hours": "7:00 AM - 12:00 AM",
+        "socials": {
+            "instagram": "https://instagram.com/padelprouae"
+        },
+        "booking_url": "https://padelpro.ae",
+        "images": [
+            "/images/clubs/padel-pro.jpg"
+        ],
+        "logo": "/images/logos/padel-pro.png"
+    },
+    {
+        "id": "central-padel",
+        "name": "Central Padel Dubai",
+        "location": {
+            "lat": 25.148,
+            "lng": 55.228,
+            "address": "Al Quoz"
+        },
+        "rating": 4.5,
+        "reviews": 95,
+        "price_per_hour": 300,
+        "currency": "AED",
+        "working_hours": "7:00 AM - 11:00 PM",
+        "socials": {
+            "instagram": "https://instagram.com/centralpadeldubai"
+        },
+        "booking_url": "https://centralpadel.ae",
+        "images": [
+            "/images/clubs/central-padel.jpg"
+        ],
+        "logo": "/images/logos/central-padel.png"
+    }
+]

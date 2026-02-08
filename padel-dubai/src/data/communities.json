@@ -1,0 +1,47 @@
+[
+    {
+        "id": "padel-dxb-meetup",
+        "name": "Padel DXB Community",
+        "platform": "Meetup",
+        "members": 1450,
+        "link": "https://meetup.com/padel-dxb",
+        "type": "Public",
+        "description": "Daily games and tournaments for all levels."
+    },
+    {
+        "id": "padel-people-dubai",
+        "name": "The Padel People",
+        "platform": "Telegram",
+        "members": 890,
+        "link": "https://t.me/padelpeopledubai_mock",
+        "type": "Public",
+        "description": "General chat for finding players in Dubai."
+    },
+    {
+        "id": "padel-ladies-dubai",
+        "name": "Padel Ladies Dubai",
+        "platform": "WhatsApp",
+        "members": 240,
+        "link": "https://chat.whatsapp.com/mock-link-ladies",
+        "type": "Private",
+        "description": "Exclusive group for female padel players."
+    },
+    {
+        "id": "matcha-community",
+        "name": "Matcha Club Social",
+        "platform": "WhatsApp",
+        "members": 500,
+        "link": "https://chat.whatsapp.com/mock-link-matcha",
+        "type": "Public",
+        "description": "Community for Matcha Club regulars."
+    },
+    {
+        "id": "dubai-padel-tennis",
+        "name": "Dubai Padel Tennis",
+        "platform": "Facebook",
+        "members": 3200,
+        "link": "https://facebook.com/groups/dubaipadel",
+        "type": "Public",
+        "description": "Largest FB group for buying gear and arranging games."
+    }
+]
